@@ -35,5 +35,5 @@
   become: yes
 
 - name: in case there were changes, check host environment again
-  include: ../check_environment.yml
+  import_tasks: ../check_environment.yml
 

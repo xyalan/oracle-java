@@ -5,7 +5,7 @@
 #
 
 - name: check host environment
-  include: check_environment.yml
+  import_tasks: check_environment.yml
 
 ## include OS family specific variables
 
@@ -16,7 +16,7 @@
     - "{{ role_path }}/defaults/{{ ansible_os_family | lower }}.yml"
   tags: installation
 
-- include: debug.yml
+- import_tasks: debug.yml
   when: debug | default(false)
   tags: debug
 
@@ -28,13 +28,13 @@
 ## include OS family specific task file
 
 - name: if darwin/macosx, include distribution specific task file
-  include: "darwin/macosx.yml"
+  import_tasks: "darwin/macosx.yml"
   when: ansible_os_family | lower == 'darwin' and ansible_distribution | lower == 'macosx'
 
 - name: if debian, include family specific task file
-  include: "debian/main.yml"
+  import_tasks: "debian/main.yml"
   when: ansible_os_family | lower == 'debian'
 
 - name: if redhat, include family specific task file
-  include: "redhat/main.yml"
+  import_tasks: "redhat/main.yml"
   when: ansible_os_family | lower == 'redhat'
